@@ -170,6 +170,7 @@ dh dh.pem
 duplicate-cn
 auth SHA1
 tls-auth ta.key 0
+fast-io
 topology subnet
 server 10.8.0.0 255.255.255.0
 ifconfig-pool-persist ipp.txt" > /etc/openvpn/server/server.conf
@@ -281,6 +282,7 @@ persist-key
 persist-tun
 remote-cert-tls server
 auth SHA1
+fast-io
 cipher AES-128-CBC
 key-direction 1
 verb 3" > /etc/openvpn/server/client-common.txt
