@@ -167,8 +167,6 @@ ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
-duplicate-cn
-auth SHA1
 tls-auth ta.key 0
 fast-io
 topology subnet
@@ -209,12 +207,15 @@ ifconfig-pool-persist ipp.txt" > /etc/openvpn/server/server.conf
 	esac
 	echo "keepalive 10 120
 cipher AES-128-CBC
+auth SHA1
 user nobody
 group $GROUPNAME
 persist-key
 persist-tun
 status openvpn-status.log
 verb 3
+route-delay 2
+pull
 crl-verify crl.pem" >> /etc/openvpn/server/server.conf
 	# Enable net.ipv4.ip_forward for the system
 	echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/30-openvpn-forward.conf
@@ -283,8 +284,10 @@ persist-tun
 remote-cert-tls server
 auth SHA1
 fast-io
+route-delay 2
 cipher AES-128-CBC
-key-direction 1
+fast-io
+pull
 verb 3" > /etc/openvpn/server/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
